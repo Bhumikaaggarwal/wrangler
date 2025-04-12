@@ -219,11 +219,9 @@ permission. No endorsement by The Apache Software Foundation is implied by the u
 
 
 
-READ.ME FILE CONTENT FOR ASSIGNMENT GIVEN ON WRANGLER LIBRARY:-
 
-Here’s a **kickass README.md** for your assignment repo that will absolutely stand out to reviewers. It clearly showcases the objective, implementation, and usage — all wrapped in a professional and developer-friendly tone:
+**READ.ME FILE CONTENT FOR ASSIGNMENT GIVEN ON WRANGLER LIBRARY:-**
 
----
 
 # 🚀 CDAP Wrangler Enhancement: Byte Size & Time Duration Parsing + Aggregation Directive
 
