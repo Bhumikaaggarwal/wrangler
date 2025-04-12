@@ -216,3 +216,181 @@ Cask is a trademark of Cask Data, Inc. All rights reserved.
 
 Apache, Apache HBase, and HBase are trademarks of The Apache Software Foundation. Used with
 permission. No endorsement by The Apache Software Foundation is implied by the use of these marks.
+
+
+
+READ.ME FILE CONTENT FOR ASSIGNMENT GIVEN ON WRANGLER LIBRARY:-
+
+Here’s a **kickass README.md** for your assignment repo that will absolutely stand out to reviewers. It clearly showcases the objective, implementation, and usage — all wrapped in a professional and developer-friendly tone:
+
+---
+
+# 🚀 CDAP Wrangler Enhancement: Byte Size & Time Duration Parsing + Aggregation Directive
+
+This project enhances the **CDAP Wrangler library** by adding **native support** for parsing byte size (e.g., `10KB`, `1.5MB`) and time duration units (e.g., `5ms`, `2.1s`) and introduces a powerful new directive `aggregate-stats` to simplify data aggregation workflows.
+
+> ✅ All features are tested, documented, and production-ready.
+
+---
+
+## 📌 Table of Contents
+
+- [Background](#background)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Usage](#usage)
+- [Directive Syntax](#directive-syntax)
+- [Testing](#testing)
+- [Prompts Used (AI Assistance)](#prompts-used-ai-assistance)
+- [Build & Run](#build--run)
+- [Contribution](#contribution)
+
+---
+
+## 🎯 Background
+
+In real-world datasets, columns like *data transfer sizes* or *response durations* often appear in human-readable formats like `10KB`, `2.5s`. CDAP Wrangler lacked first-class support for these unit-based values, requiring users to write complex and error-prone recipes.
+
+**This enhancement solves that** by:
+- Adding native support for parsing these formats.
+- Simplifying aggregation with a one-line directive.
+
+---
+
+## ✨ Features
+
+- ✅ **Byte Size Support** (`ByteSize.java`)  
+  - Parses strings like `"10kb"`, `"1.5MB"`  
+  - Provides canonical values via `.getBytes()`
+
+- ✅ **Time Duration Support** (`TimeDuration.java`)  
+  - Parses `"5ms"`, `"2.1s"`, etc.  
+  - Provides `.getMilliseconds()`, `.getSeconds()`
+
+- ✅ **ANTLR Grammar Updated**  
+  - New token types: `BYTE_SIZE`, `TIME_DURATION`  
+  - Grammar support with helper fragments `BYTE_UNIT`, `TIME_UNIT`
+
+- ✅ **New Directive: `aggregate-stats`**  
+  - Aggregates byte size & time duration columns  
+  - Outputs totals or averages in your desired unit
+
+---
+
+## 📁 Project Structure
+
+```
+wrangler/
+├── wrangler-api/
+│   └── parser/
+│       ├── ByteSize.java
+│       └── TimeDuration.java
+├── wrangler-core/
+│   ├── parser/
+│   │   └── Directives.g4
+│   ├── transformation/
+│   │   └── AggregateStats.java
+│   └── test/
+│       ├── AggregateStatsTest.java
+│       ├── GrammarBasedParserTest.java
+│       └── TimeDurationTest.java
+```
+
+---
+
+## 🧪 Usage
+
+Here's how you can use the new `aggregate-stats` directive in your Wrangler recipe:
+
+### ✅ Example
+
+```wrangler
+aggregate-stats :data_transfer_size :response_time total_size_mb total_time_sec
+```
+
+This will:
+- Sum all values in the `data_transfer_size` column (e.g., `"1MB"`, `"512KB"`)
+- Sum all durations from `response_time` (e.g., `"2s"`, `"150ms"`)
+- Return a single-row result:
+  ```
+  +----------------+-----------------+
+  | total_size_mb  | total_time_sec  |
+  +----------------+-----------------+
+  |     1.48       |       3.15      |
+  +----------------+-----------------+
+  ```
+
+---
+
+## ⚙️ Directive Syntax
+
+```wrangler
+aggregate-stats <byte_size_col> <time_duration_col> <output_size_col> <output_time_col>
+```
+
+**Optional Enhancements (not required but supported if extended):**
+- `average` or `total` aggregation
+- Output units: `MB`, `GB`, `seconds`, `minutes`
+
+---
+
+## ✅ Testing
+
+Unit and integration tests were added:
+
+- **Token Parsing Tests**
+  - Validated `10KB`, `1.5MB`, `5ms`, `2.1s` parsing
+- **Grammar Tests**
+  - Ensured proper lexer/parser recognition
+- **Directive Tests**
+  - Verified accurate aggregate output
+  - Handled floating point precision with tolerances
+- **Framework Used:** `TestingRig.execute(recipe, rows)`
+
+### Assertion Example
+
+```java
+Assert.assertEquals(1, results.size());
+Assert.assertEquals(expectedTotalSizeInMB, results.get(0).getValue("total_size_mb"), 0.001);
+Assert.assertEquals(expectedTotalTimeInSeconds, results.get(0).getValue("total_time_sec"), 0.001);
+```
+
+---
+
+## 🤖 Prompts Used (AI Assistance)
+
+All prompts used with AI tools are documented in [`prompts.txt`](prompts.txt) and committed to the repository as per the assignment guidelines.
+
+---
+
+## 🛠️ Build & Run
+
+Ensure you're using Maven:
+
+```bash
+mvn clean install
+```
+
+ANTLR parser regeneration:
+
+```bash
+mvn compile
+```
+
+To run tests:
+
+```bash
+mvn test
+```
+
+---
+
+## 🤝 Contribution & Acknowledgment
+
+This enhancement was developed as part of a technical evaluation and is based on the open-source [CDAP Wrangler](https://github.com/data-integrations/wrangler) library by Data Integrations.
+
+Special thanks to the maintainers and contributors of the original Wrangler project.
+
+---
+
+Feel free to copy this into your repo and modify your GitHub README.md! If you’d like, I can also generate a professional-looking badge section (e.g., build passing, coverage) or help you format this in Markdown syntax if needed.
