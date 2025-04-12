@@ -15,6 +15,8 @@
  */
 
 package io.cdap.wrangler.parser;
+import io.cdap.wrangler.api.parser.ByteSize;
+import io.cdap.wrangler.api.parser.TimeDuration;
 
 import io.cdap.wrangler.api.LazyNumber;
 import io.cdap.wrangler.api.RecipeSymbol;
@@ -86,6 +88,29 @@ public final class RecipeVisitor extends DirectivesBaseVisitor<RecipeSymbol.Buil
     builder.createTokenGroup(getOriginalSource(ctx));
     return super.visitDirective(ctx);
   }
+
+  @Override
+public RecipeSymbol.Builder visitByteSizeArg(DirectivesParser.ByteSizeArgContext ctx) {
+  String value = ctx.getText(); // e.g., "10MB"
+  builder.addToken(new ByteSize(value));
+  return builder;
+}
+
+@Override
+public RecipeSymbol.Builder visitTimeDurationArg(DirectivesParser.TimeDurationArgContext ctx) {
+  String value = ctx.getText(); // e.g., "5s", "2 hours"
+  builder.addToken(new TimeDuration(value));
+  return builder;
+}
+
+  
+  // @Override
+  // public RecipeSymbol.Builder visitByteSizeArg(DirectivesParser.ByteSizeArgContext ctx) {
+  //   String value = ctx.getText(); // e.g., 10MB
+  //   builder.addToken(new ByteSize(value));
+  //   return builder;
+  // }
+
 
   /**
    * A Directive can include identifiers, this method extracts that token that is being
