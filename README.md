@@ -220,7 +220,15 @@ permission. No endorsement by The Apache Software Foundation is implied by the u
 
 
 
+<<<<<<< HEAD
 # **READ.ME FILE CONTENT FOR ASSIGNMENT GIVEN ON WRANGLER LIBRARY:-**
+=======
+
+
+# READ.ME FILE FOR ASSIGNMENT GIVEN ON WRANGLER LIBRARY
+
+
+>>>>>>> ef09f473 (Assignment Tasks Commit)
 
 
 # 🚀 CDAP Wrangler Enhancement: Byte Size & Time Duration Parsing + Aggregation Directive
@@ -391,4 +399,8 @@ Special thanks to the maintainers and contributors of the original Wrangler proj
 
 ---
 
+<<<<<<< HEAD
 Feel free to copy this into your repo and modify your GitHub README.md! If you’d like, I can also generate a professional-looking badge section (e.g., build passing, coverage) or help you format this in Markdown syntax if needed.
+=======
+Feel free to copy this into your repo and modify your GitHub README.md! If you’d like, I can also generate a professional-looking badge section (e.g., build passing, coverage) or help you format this in Markdown syntax if needed.
+>>>>>>> ef09f473 (Assignment Tasks Commit)
